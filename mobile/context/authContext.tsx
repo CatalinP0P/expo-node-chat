@@ -31,9 +31,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [])
 
   const login = (email: string, password: string) => {
-    if (email.toLowerCase() != 'test@example.com' && password != 'password') {
-      throw 'Email or Password wrong'
-    }
+    // if (email.toLowerCase() != 'test@example.com' && password != 'password') {
+    //   throw 'Email or Password wrong'
+    // }
 
     setCurrentUser({ id: 1, email, password })
   }

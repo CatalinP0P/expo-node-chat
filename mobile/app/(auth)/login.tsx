@@ -1,12 +1,11 @@
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, SafeAreaView } from 'react-native'
-
 import { styles } from './login.styles'
 import { Link } from 'expo-router'
 import { useAuth } from '../../context/authContext'
-import Input from '../components/input/input'
-import CustomButton from '../components/ui/customButton/customButton'
+import Input from '../../components/input/input'
+import CustomButton from '../../components/ui/customButton/customButton'
 
 export default function Login() {
   const { login } = useAuth()
