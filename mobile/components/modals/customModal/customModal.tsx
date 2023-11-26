@@ -36,6 +36,8 @@ export default function CustomModal({
             width: '100%',
             height: '100%',
             maxHeight: '80%',
+            paddingHorizontal: 12,
+            paddingVertical: 8,
           }}
         >
           {children}

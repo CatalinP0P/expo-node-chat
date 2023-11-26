@@ -20,7 +20,7 @@ export default function UserCard({ username, photoURL, id }: UserCardProps) {
       onPress={() => console.log(id)}
     >
       <Image
-        style={{ width: 80, height: 80, borderRadius: 500 }}
+        style={{ width: 64, height: 64, borderRadius: 500 }}
         source={{ uri: photoURL }}
       />
       <View style={{ flex: 1 }}>
