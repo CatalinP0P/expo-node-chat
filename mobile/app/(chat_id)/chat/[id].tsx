@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 import useConversation from '../../../hooks/useConversation'
 import { useAuth } from '../../../context/authContext'
 import { router } from 'expo-router'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { Message } from '../../../types/Message'
 import ChatMessage from '../../../components/chatMessage/chatMessage'
 import { colors } from '../../../static/colors'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function Chat_ID() {
+  const [newMessage, setNewMessage] = useState('')
   const userData = useAuth()
   const { conversation, loading } = useConversation(1)
 
@@ -16,6 +18,11 @@ export default function Chat_ID() {
     if (userData.loading) return
     if (userData.currentUser == null) return router.replace('/login')
   }, [userData.loading])
+
+  const sendMessage = () => {
+    console.log(newMessage)
+    setNewMessage('')
+  }
 
   return !loading ? (
     <>
@@ -50,13 +57,38 @@ export default function Chat_ID() {
       <View
         style={{
           width: '100%',
-          backgroundColor: colors.black20,
-          paddingBottom: 64,
+          backgroundColor: colors.white,
+          paddingBottom: 40,
           paddingHorizontal: 16,
           paddingTop: 12,
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 16,
+          alignItems: 'center',
         }}
       >
-        <Text>Hello</Text>
+        <Ionicons name="add" size={32} color={colors.black80} />
+        <TextInput
+          value={newMessage}
+          onChangeText={(text: string) => setNewMessage(text)}
+          style={{
+            paddingVertical: 8,
+            paddingHorizontal: 16,
+            borderWidth: 1,
+            borderColor: colors.black80,
+            borderRadius: 100,
+            flex: 1,
+          }}
+        />
+        {newMessage && (
+          <Ionicons
+            onPress={sendMessage}
+            name="send"
+            size={28}
+            color={colors.text}
+          />
+        )}
+        <Ionicons name="camera" size={32} color={colors.black80} />
       </View>
     </>
   ) : (

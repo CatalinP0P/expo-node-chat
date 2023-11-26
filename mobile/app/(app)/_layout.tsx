@@ -1,8 +1,11 @@
 import { Tabs } from 'expo-router'
-import React from 'react'
+import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import AddUserModal from '../../components/modals/addUserModal'
 
 export default function Layout() {
+  const [addUserVisible, setAddUserVisible] = useState(false)
+
   return (
     <>
       <Tabs
@@ -33,6 +36,24 @@ export default function Layout() {
         />
 
         <Tabs.Screen
+          name="friends"
+          options={{
+            title: 'Friends',
+            tabBarIcon: ({ size, color }) => {
+              return <Ionicons name="body" size={size} color={color} />
+            },
+            headerRight: () => (
+              <Ionicons
+                onPress={() => setAddUserVisible(!addUserVisible)}
+                name="add-outline"
+                size={32}
+                style={{ paddingRight: 8 }}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
           name="settings"
           options={{
             title: 'Settings',
@@ -44,6 +65,7 @@ export default function Layout() {
           }}
         />
       </Tabs>
+      <AddUserModal visible={addUserVisible} setVisible={setAddUserVisible} />
     </>
   )
 }

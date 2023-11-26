@@ -11,7 +11,6 @@ export default function ChatMessage({
   message: string
   status: 'sent' | 'received'
 }) {
-  console.log(status, photoURL)
   return (
     <View
       style={{
