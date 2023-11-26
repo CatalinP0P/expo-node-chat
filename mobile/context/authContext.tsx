@@ -4,18 +4,22 @@ interface UserProps {
   id: number
   email: string
   password: string
+  photoURL: string
+  username: string
 }
 
 interface AuthContextProps {
   loading: boolean
   currentUser: UserProps | null
   login: (email: string, password: string) => void
+  signOut: () => void
 }
 
 const AuthContext = createContext<AuthContextProps>({
   loading: true,
   currentUser: null,
   login: () => {},
+  signOut: () => {},
 })
 
 export const useAuth = () => {
@@ -31,15 +35,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [])
 
   const login = (email: string, password: string) => {
-    // if (email.toLowerCase() != 'test@example.com' && password != 'password') {
-    //   throw 'Email or Password wrong'
-    // }
+    setCurrentUser({
+      id: 1,
+      email,
+      password,
+      photoURL:
+        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      username: 'CatalinPCE',
+    })
+  }
 
-    setCurrentUser({ id: 1, email, password })
+  const signOut = () => {
+    setCurrentUser(null)
   }
 
   return (
-    <AuthContext.Provider value={{ loading, currentUser, login }}>
+    <AuthContext.Provider value={{ loading, currentUser, login, signOut }}>
       {children}
     </AuthContext.Provider>
   )

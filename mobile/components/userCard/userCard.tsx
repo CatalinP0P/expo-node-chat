@@ -3,12 +3,18 @@ import { Pressable, Image, View, Text } from 'react-native'
 import { colors } from '../../static/colors'
 
 interface UserCardProps {
+  size?: 'medium' | 'large'
   username: string
   photoURL: string
   id: string
 }
 
-export default function UserCard({ username, photoURL, id }: UserCardProps) {
+export default function UserCard({
+  username,
+  photoURL,
+  id,
+  size = 'medium',
+}: UserCardProps) {
   return (
     <Pressable
       style={{
@@ -20,12 +26,20 @@ export default function UserCard({ username, photoURL, id }: UserCardProps) {
       onPress={() => console.log(id)}
     >
       <Image
-        style={{ width: 64, height: 64, borderRadius: 500 }}
+        style={{
+          width: size == 'medium' ? 64 : 96,
+          height: size == 'medium' ? 64 : 96,
+          borderRadius: 500,
+        }}
         source={{ uri: photoURL }}
       />
       <View style={{ flex: 1 }}>
         <Text
-          style={{ fontSize: 24, fontWeight: '600', color: colors.black80 }}
+          style={{
+            fontSize: size == 'medium' ? 24 : 32,
+            fontWeight: '600',
+            color: colors.black80,
+          }}
         >
           {username}
         </Text>
