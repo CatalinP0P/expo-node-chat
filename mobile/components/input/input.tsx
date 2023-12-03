@@ -22,7 +22,7 @@ export default function Input({
         style={styles.textInput}
         value={value}
         onChangeText={(text: string) => {
-          setValue(text + '')
+          if (setValue) setValue(text + '')
         }}
         {...otherProps}
       />

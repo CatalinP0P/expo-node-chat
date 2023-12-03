@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text } from 'react-native'
 import useConversation from '../../../hooks/useConversation'
-import { useAuth } from '../../../context/authContext'
-import { router } from 'expo-router'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { Message } from '../../../types/Message'
 import ChatMessage from '../../../components/chatMessage/chatMessage'
 import { colors } from '../../../static/colors'
 import { Ionicons } from '@expo/vector-icons'
+import useAuthorizedPage from '../../../hooks/useAuthorizedPage'
 
 export default function Chat_ID() {
   const [newMessage, setNewMessage] = useState('')
-  const userData = useAuth()
   const { conversation, loading } = useConversation(1)
 
-  useEffect(() => {
-    if (userData.loading) return
-    if (userData.currentUser == null) return router.replace('/login')
-  }, [userData.loading])
+  useAuthorizedPage()
 
   const sendMessage = () => {
     console.log(newMessage)

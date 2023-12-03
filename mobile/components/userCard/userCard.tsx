@@ -6,6 +6,7 @@ interface UserCardProps {
   size?: 'medium' | 'large'
   username: string
   photoURL: string
+  email?: string
   id: string
 }
 
@@ -14,6 +15,7 @@ export default function UserCard({
   photoURL,
   id,
   size = 'medium',
+  email,
 }: UserCardProps) {
   return (
     <Pressable
@@ -43,6 +45,17 @@ export default function UserCard({
         >
           {username}
         </Text>
+        {email && (
+          <Text
+            style={{
+              fontSize: size == 'medium' ? 14 : 18,
+              fontWeight: '500',
+              color: colors.black60,
+            }}
+          >
+            {email}
+          </Text>
+        )}
       </View>
     </Pressable>
   )

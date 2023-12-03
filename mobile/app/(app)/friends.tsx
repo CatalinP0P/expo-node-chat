@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import useFriends from '../../hooks/useFriends'
 import { FriendshipProps } from '../../types/FriendshipProps'
 import UserCard from '../../components/userCard/userCard'
-import { useAuth } from '../../context/authContext'
+import { useUser } from '@clerk/clerk-expo'
 
 export default function Friends() {
-  const { currentUser } = useAuth()
+  const { user } = useUser()
   const { friends, loading } = useFriends()
 
   useEffect(() => {
@@ -30,17 +30,17 @@ export default function Friends() {
           <UserCard
             key={friendInfo.id}
             photoURL={
-              friendInfo.user_1_id == currentUser?.id
+              friendInfo.user_1_id.toString() == user?.id
                 ? friendInfo.user_2_photoURL + ''
                 : friendInfo.user_1_photoURL + ''
             }
             username={
-              friendInfo.user_1_id == currentUser?.id
+              friendInfo.user_1_id.toString() == user?.id
                 ? friendInfo.user_2_username + ''
                 : friendInfo.user_1_username + ''
             }
             id={
-              friendInfo.user_1_id == currentUser?.id
+              friendInfo.user_1_id.toString() == user?.id
                 ? friendInfo.user_2_id + ''
                 : friendInfo.user_1_id + ''
             }

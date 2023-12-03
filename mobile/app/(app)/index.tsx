@@ -7,10 +7,10 @@ import { ScrollView } from 'react-native-gesture-handler'
 import useAuthorizedPage from '../../hooks/useAuthorizedPage'
 
 export default function Chats() {
-  const { loading } = useAuthorizedPage()
+  const { isLoaded } = useAuthorizedPage()
   const chatsData = useChats()
 
-  return !loading ? (
+  return isLoaded ? (
     <ScrollView
       style={{
         display: 'flex',

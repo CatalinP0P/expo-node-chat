@@ -1,18 +1,16 @@
-import { useEffect } from 'react'
-import { useAuth } from '../context/authContext'
+import { useAuth, useUser } from '@clerk/clerk-expo'
 import { router } from 'expo-router'
+import { useEffect } from 'react'
 
 export default function useAuthorizedPage() {
-  const { currentUser, loading } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
 
   useEffect(() => {
-    if (loading) return
-    if (currentUser == null) {
-      setTimeout(() => {
-        router.replace('/login')
-      }, 0)
-    }
-  }, [loading, currentUser])
+    if (!isLoaded) return
 
-  return { currentUser, loading }
+    if (!isSignedIn) router.replace('/login')
+  }, [isLoaded, user, isSignedIn])
+
+  return { isLoaded }
 }

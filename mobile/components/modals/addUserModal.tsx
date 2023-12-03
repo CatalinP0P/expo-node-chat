@@ -7,8 +7,8 @@ import { Ionicons } from '@expo/vector-icons'
 import useFriends from '../../hooks/useFriends'
 import { FriendshipProps } from '../../types/FriendshipProps'
 import UserCard from '../userCard/userCard'
-import { useAuth } from '../../context/authContext'
 import { StyleSheet } from 'react-native'
+import { useUser } from '@clerk/clerk-expo'
 
 interface AddUserModalProps {
   visible: boolean
@@ -20,7 +20,7 @@ export default function AddUserModal({
   setVisible,
 }: AddUserModalProps) {
   const [searchText, setSearchText] = useState('')
-  const { currentUser } = useAuth()
+  const { user } = useUser()
   const { friends } = useFriends()
 
   return (
@@ -50,17 +50,17 @@ export default function AddUserModal({
                 <UserCard
                   key={friendInfo.id}
                   photoURL={
-                    friendInfo.user_1_id == currentUser?.id
+                    friendInfo.user_1_id.toString() == user?.id
                       ? friendInfo.user_2_photoURL + ''
                       : friendInfo.user_1_photoURL + ''
                   }
                   username={
-                    friendInfo.user_1_id == currentUser?.id
+                    friendInfo.user_1_id.toString() == user?.id
                       ? friendInfo.user_2_username + ''
                       : friendInfo.user_1_username + ''
                   }
                   id={
-                    friendInfo.user_1_id == currentUser?.id
+                    friendInfo.user_1_id.toString() == user?.id
                       ? friendInfo.user_2_id + ''
                       : friendInfo.user_1_id + ''
                   }
@@ -77,17 +77,17 @@ export default function AddUserModal({
             <UserCard
               key={friendInfo.id}
               photoURL={
-                friendInfo.user_1_id == currentUser?.id
+                friendInfo.user_1_id.toString() == user?.id
                   ? friendInfo.user_2_photoURL + ''
                   : friendInfo.user_1_photoURL + ''
               }
               username={
-                friendInfo.user_1_id == currentUser?.id
+                friendInfo.user_1_id.toString() == user?.id
                   ? friendInfo.user_2_username + ''
                   : friendInfo.user_1_username + ''
               }
               id={
-                friendInfo.user_1_id == currentUser?.id
+                friendInfo.user_1_id.toString() == user?.id
                   ? friendInfo.user_2_id + ''
                   : friendInfo.user_1_id + ''
               }
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: colors.black80,
-    borderRadius: 16,
+    borderRadius: 8,
   },
 
   input__row: {

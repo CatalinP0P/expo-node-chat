@@ -1,13 +1,12 @@
 import { Stack } from 'expo-router'
 import React from 'react'
-import { AuthProvider } from '../context/authContext'
-import useAuthorizedPage from '../hooks/useAuthorizedPage'
+import { ClerkProvider } from '@clerk/clerk-expo'
 
 export default function Layout() {
-  useAuthorizedPage()
-
   return (
-    <AuthProvider>
+    <ClerkProvider
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
       <Stack>
         <Stack.Screen
           name="(app)"
@@ -19,6 +18,6 @@ export default function Layout() {
           options={{ headerShown: true, title: 'Conversation' }}
         />
       </Stack>
-    </AuthProvider>
+    </ClerkProvider>
   )
 }

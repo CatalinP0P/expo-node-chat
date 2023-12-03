@@ -1,28 +1,39 @@
-import React from 'react'
-import { View } from 'react-native'
-import UserCard from '../../components/userCard/userCard'
-import { useAuth } from '../../context/authContext'
-import { colors } from '../../static/colors'
-import { StyleSheet, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useAuth, useUser } from '@clerk/clerk-expo'
 import { Ionicons } from '@expo/vector-icons'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import UserCard from '../../components/userCard/userCard'
+import { colors } from '../../static/colors'
 
 export default function Settings() {
-  const { currentUser, signOut } = useAuth()
+  const { user } = useUser()
+  const { signOut } = useAuth()
 
   return (
     <View style={styles.container}>
       <UserCard
         size="large"
-        id={currentUser?.id + ''}
-        username={currentUser?.username}
-        photoURL={currentUser?.photoURL}
+        id={user?.id + ''}
+        username={user?.fullName}
+        photoURL={user?.imageUrl}
+        email={user?.primaryEmailAddress + ''}
       />
       <View style={styles.separator} />
 
+      <TouchableOpacity style={styles.link__item}>
+        <Ionicons name="body-outline" size={32} color={colors.black80} />
+        <Text style={{ fontSize: 24 }}>Personal Information</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.link__item}>
+        <Ionicons name="settings-outline" size={32} color={colors.black80} />
+        <Text style={{ fontSize: 24 }}>Settings</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.link__item} onPress={signOut}>
-        <Text style={{ fontSize: 24 }}>Sign out</Text>
         <Ionicons name="log-out-outline" size={32} color={colors.black80} />
+        <Text style={{ fontSize: 24 }}>Sign out</Text>
       </TouchableOpacity>
     </View>
   )
@@ -42,7 +53,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     flexDirection: 'row',
-    gap: 24,
+    gap: 12,
     alignItems: 'center',
     paddingVertical: 8,
   },
