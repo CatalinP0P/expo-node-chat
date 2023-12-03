@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model friendship {
+  id        Int      @id @default(autoincrement())
+  user_id_1 String
+  user_id_2 String
+  createdAt DateTime @default(now())
+}
+
+model friend_request {
+  id          Int      @id @default(autoincrement())
+  sender_id   String
+  receiver_id String
+  createdAt   DateTime @default(now())
+}
